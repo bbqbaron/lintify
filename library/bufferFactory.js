@@ -2,6 +2,24 @@
 var jshint = require('jshint').JSHINT;
 
 function bufferFactory(file, options) {
+    var i,
+        ignorePaths = options.ignorePaths || [];
+
+    var ignoreRegexes = [];
+    for (i=0; i<ignorePaths.length; i++) {
+        ignoreRegexes.push(new RegExp(ignorePaths[0]));
+    }
+
+    function shouldInclude(text) {
+        var i;
+        for (i=0; i<ignoreRegexes.length; i++) {
+            if (ignoreRegexes[i].exec(text) !== null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function onLintError(error) {
         var location = [error.line, error.character].join(':');
         options.errors.each(location, error.reason);
@@ -30,7 +48,11 @@ function bufferFactory(file, options) {
         next();
     }
 
-    return setBuffer;
+    function noOp(buffer, encoding, next) {
+        next();
+    }
+
+    return shouldInclude(file) ? setBuffer : noOp
 }
 
 module.exports = bufferFactory;
