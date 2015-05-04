@@ -7,7 +7,7 @@ function bufferFactory(file, options) {
 
     var ignoreRegexes = [];
     for (i=0; i<ignorePaths.length; i++) {
-        ignoreRegexes.push(new RegExp(ignorePaths[0]));
+        ignoreRegexes.push(new RegExp(ignorePaths[i]));
     }
 
     function shouldInclude(text) {
