@@ -49,6 +49,7 @@ function bufferFactory(file, options) {
     }
 
     function noOp(buffer, encoding, next) {
+        this.push(buffer.toString('utf8'));
         next();
     }
 
