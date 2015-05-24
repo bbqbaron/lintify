@@ -12,6 +12,10 @@ function bufferFactory(file, options) {
 
     function shouldInclude(text) {
         var i;
+        if (text.slice(text.length-3) !== '.js') {
+            return false;
+        }
+
         for (i=0; i<ignoreRegexes.length; i++) {
             if (ignoreRegexes[i].exec(text) !== null) {
                 return false;
