@@ -1,6 +1,6 @@
 {
   "name": "lintify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Browserify transform to abort bundling silly source files.",
   "author": "Eric Bednarz <github@bednarz.nl>",
   "repository": {
